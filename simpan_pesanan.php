@@ -44,13 +44,12 @@ try {
 
         $insertDetail = mysqli_prepare(
             $koneksi,
-            "INSERT INTO pesanan_detail (pesanan_id, menu_id, nama_menu, harga, qty, subtotal) VALUES (?, ?, ?, ?, ?, ?)"
+            "INSERT INTO pesanan_detail (pesanan_id, nama_menu, harga, qty, subtotal) VALUES (?, ?, ?, ?, ?)"
         );
         mysqli_stmt_bind_param(
             $insertDetail,
-            'iisiii',
+            'isiii',
             $pesananId,
-            $menuId,
             $menu['nama'],
             $menu['harga'],
             $qty,
