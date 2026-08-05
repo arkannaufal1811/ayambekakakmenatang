@@ -60,7 +60,10 @@ require 'includes/header.php';
         <input type="text" id="username" name="username" placeholder="admin" required autofocus>
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="••••••••" required>
+        <div style="position: relative; display: flex; align-items: center;">
+            <input type="password" id="password" name="password" placeholder="••••••••" required style="width: 100%; padding-right: 40px;">
+            <span id="togglePassword" style="position: absolute; right: 12px; cursor: pointer; font-size: 16px; user-select: none;">👁️‍🗨️</span>
+        </div>
 
         <button class="btn btn-ember" type="submit" style="width:100%;justify-content:center;margin-top:18px;">Masuk</button>
         <small>Akun default: admin / admin123 — segera ganti setelah login pertama.</small>
@@ -68,6 +71,20 @@ require 'includes/header.php';
     </div>
   </section>
 </main>
+
+<script>
+const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#password');
+
+togglePassword.addEventListener('click', function () {
+    // Ubah tipe input antara password dan text
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    
+    // Ganti ikon mata
+    this.textContent = type === 'password' ? '👁️‍🗨️' : '👁️';
+});
+</script>
 
 <?php
 mysqli_close($koneksi);
