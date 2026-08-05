@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $res = mysqli_stmt_get_result($stmt);
         $admin = mysqli_fetch_assoc($res);
 
-        if ($admin && password_verify($password, $admin['password'])) {
+        // Pengecekan password tanpa hash (langsung teks biasa)
+        if ($admin && $password === $admin['password']) {
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_username'] = $admin['username'];
             header('Location: laporan.php');
@@ -77,11 +78,8 @@ const togglePassword = document.querySelector('#togglePassword');
 const password = document.querySelector('#password');
 
 togglePassword.addEventListener('click', function () {
-    // Ubah tipe input antara password dan text
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
-    
-    // Ganti ikon mata
     this.textContent = type === 'password' ? '👁️‍🗨️' : '👁️';
 });
 </script>
