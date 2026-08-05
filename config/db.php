@@ -1,20 +1,20 @@
 <?php
 /**
  * config/db.php
- * Koneksi ke database MySQL.
- * Sesuaikan DB_USER / DB_PASS kalau setting MySQL kamu berbeda dari default XAMPP/Laragon.
+ * Koneksi ke database MySQL (Suport Localhost & Railway)
  */
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');          // default XAMPP kosong, isi kalau MySQL kamu pakai password
-define('DB_NAME', 'db_bekakak_ayam');
+$host = getenv('MYSQLHOST') ?: 'localhost';
+$user = getenv('MYSQLUSER') ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: '';
+$db   = getenv('MYSQLDATABASE') ?: 'db_bekakak_ayam';
+$port = getenv('MYSQLPORT') ?: 3306;
 
-$koneksi = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$koneksi = mysqli_connect($host, $user, $pass, $db, $port);
 
 if (!$koneksi) {
-    die('Koneksi database gagal: ' . mysqli_connect_error() .
-        '<br>Pastikan MySQL sudah jalan dan database "db_bekakak_ayam" sudah dibuat (lihat README.md).');
+    die('Koneksi database gagal: ' . mysqli_connect_error());
 }
 
 mysqli_set_charset($koneksi, 'utf8mb4');
+?>
